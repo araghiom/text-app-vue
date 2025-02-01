@@ -41,8 +41,9 @@ const isSubmitVisible = computed(() => stepIndex.value === totalSteps.value - 1)
 const isSubmitDisabled = computed(() => isLoading.value || !isStepValid(stepIndex.value));
 
 const isStepValid = (step) => {
-  if (step === 0) return !v$.value.name.$invalid;
-  if (step === 1) return !v$.value.email.$invalid;
+  v$.value.$validate(); 
+  if (step === 0) return !v$.value.name.$invalid && form.value.name.trim() !== "";
+  if (step === 1) return !v$.value.email.$invalid && form.value.email.trim() !== "";
   return true;
 };
 
