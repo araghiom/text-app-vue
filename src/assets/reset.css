@@ -1,0 +1,60 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, ol, ul, figure, blockquote, pre, fieldset, legend {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  background-color: #fff;
+  color: #333;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+a, button, input, textarea, select {
+  outline: none;
+}
+
+a:focus, button:focus, input:focus, textarea:focus, select:focus {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+::selection {
+  background-color: #4f46e5;
+  color: #fff;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
