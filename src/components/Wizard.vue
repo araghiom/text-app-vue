@@ -8,13 +8,16 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, email as emailValidator, minLength, maxLength, helpers } from "@vuelidate/validators";
 import { addUser } from "@/api/usersApi";
 
+
+
 const emit = defineEmits(["submit"]);
 
 const form = ref({
   username: "",
   email: "",
 });
-
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+const invalidEmailAddress='Invalid email address.'
 const rules = {
   username: [
     helpers.withMessage("Invalid Username.", required),
@@ -22,11 +25,13 @@ const rules = {
     helpers.withMessage("Invalid Username.", maxLength(20)),
     helpers.withMessage("Invalid Username.", helpers.regex(/^[a-zA-Z0-9_]+$/)), 
   ],
- email: [
-    helpers.withMessage("Invalid email address.", required),
-    helpers.withMessage("Invalid email address.", emailValidator),
+  email: [
+    helpers.withMessage(invalidEmailAddress, required),
+    helpers.withMessage(invalidEmailAddress, emailValidator),
+    helpers.withMessage(invalidEmailAddress, helpers.regex(emailRegex)), 
   ],
 };
+;
 
 const v$ = useVuelidate(rules, form);
 
@@ -41,7 +46,7 @@ const totalSteps = computed(() => steps.length);
 const isLoading = ref(false);
 
 const isPrevDisabled = computed(() => stepIndex.value === 0);
-const isNextDisabled = computed(() => stepIndex.value === totalSteps.value - 1);
+const isNextDisabled = computed(() => stepIndex.value >= totalSteps.value - 1);
 const isSubmitVisible = computed(() => stepIndex.value === totalSteps.value - 1);
 const isSubmitDisabled = computed(() => isLoading.value || !isFormValid());
 
@@ -64,8 +69,9 @@ const nextStep = async () => {
       return;
     }
   }
-
-  stepIndex.value++;
+  if (stepIndex.value < totalSteps.value - 1) {
+    stepIndex.value++;
+  }
 };
 
 const prevStep = () => {
@@ -101,7 +107,7 @@ provide("currentStep", stepIndex);
 
       <div class="button-group">
         <Button id="btn-prev" label="Prev" :isDisabled="isPrevDisabled" @click="prevStep" />
-        <Button v-if="!isSubmitVisible" id="btn-next" label="Next" :isDisabled="isNextDisabled" @click="nextStep" />
+        <Button id="btn-next" label="Next" :isDisabled="isNextDisabled" @click="nextStep" />
         <Button v-if="isSubmitVisible" id="btn-submit" label="Submit" :isLoading="isLoading" :isDisabled="isSubmitDisabled" @click="submitForm" />
       </div>
     </div>

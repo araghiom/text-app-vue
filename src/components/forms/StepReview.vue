@@ -10,7 +10,7 @@ const currentStep = inject("currentStep");
 <template>
   <div>
     <FormHeader :title="`Step ${currentStep + 1}: Review Your Details`" />
-    <p><strong>Name:</strong> {{ form.name }}</p>
-    <p><strong>Email:</strong> {{ form.email }}</p>
+    <p>{{"Username: "}} {{ form.username }}</p>
+    <p>{{"Email: "  }} {{ form.email }}</p>
   </div>
 </template>

@@ -16,7 +16,7 @@ const currentStep = inject("currentStep");
       id="email"
       type="email"
       v-model="form.email"
-      :error="v$.email.$error ? v$.email.$errors[0].$message : ''"
+      :error="v$.username.$error ? v$.username.$errors[0].$message :v$.email.$error ? v$.email.$errors[0].$message : ''"
     />
   </div>
 </template>
