@@ -12,7 +12,7 @@ const currentStep = inject("currentStep");
   <div>
     <FormHeader :title="`Step ${currentStep + 1}: Enter Your Email`" />
     <Input
-      label="Email"
+      label="Email:"
       id="email"
       type="email"
       v-model="form.email"
